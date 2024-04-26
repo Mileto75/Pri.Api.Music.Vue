@@ -1,0 +1,27 @@
+﻿@model AuthLoginViewModel
+
+<div class="row">
+    <div class="col col-lg-4 mx-auto border border-1 rounded rounded-1">
+        <div asp-validation-summary="ModelOnly" class="alert alert-primary" role="alert">
+                    
+                </div>
+                <form asp-controller="Auth" asp-action="Login" method="post">
+                    <div class="form-group">
+                        <label asp-for="Username"></label>
+                        <input asp-for="Username" class="form-control">
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <input asp-for="ReturnUrl" />
+                    <a asp-controller="Auth" asp-action="Register" class="nav-link">New user?</a>
+                    <button type="submit" class="btn btn-primary mt-2 mb-2">Login</button>
+                </form>
+            </div>
+        </div>
+    
+
+
