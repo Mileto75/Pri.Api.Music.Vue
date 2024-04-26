@@ -105,7 +105,8 @@ namespace Pri.Api.Music.Api
                      });
                 });
             });
-
+            //addcors
+            builder.Services.AddCors();
             // Add services to the container.
             builder.Services.AddScoped<IRecordRepository, RecordRepository>();
             builder.Services.AddScoped<IGenreRepository, GenreRepository>();
@@ -129,7 +130,12 @@ namespace Pri.Api.Music.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseCors(options =>
+            {
+                options.AllowAnyOrigin();
+                options.AllowAnyHeader();
+                options.AllowAnyMethod();
+            });
             app.UseHttpsRedirection();
 
             app.UseAuthentication();

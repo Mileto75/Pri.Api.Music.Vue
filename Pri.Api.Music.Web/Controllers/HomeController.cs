@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Pri.CleanArchitecture.Music.Web.Models;
+using Pri.Api.Music.Web.Models;
 using System.Diagnostics;
 
-namespace Pri.CleanArchitecture.Music.Web.Controllers
+namespace Pri.Api.Music.Web.Controllers
 {
     public class HomeController : Controller
     {
