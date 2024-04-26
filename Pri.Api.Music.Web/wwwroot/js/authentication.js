@@ -77,7 +77,7 @@
         },
         submitLogout: function () {
             this.tokenObject = "";
-            window.sessionStorage.removeItem("token");
+            window.sessionStorage.clear();
             this.loggedIn = false;
         },
         toggleModal: function (modalId) {

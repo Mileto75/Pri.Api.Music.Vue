@@ -1,7 +1,8 @@
 ﻿
-<div id="app">
-
+<div>
+    <div v-if="isAdmin" class="row justify-content-center">
+        <div class="col col-lg-4"><button class="btn btn-outline-primary">Manage categories</button></div>
+        <div class="col col-lg-4"><button class="btn btn-outline-primary">Manage products</button></div>
+    </div>
 </div>
-<script src="~/lib/axios/axios.js"></script>
-<script src="~/lib/vue/vue.js"></script>
-<script src="~/js/products.js" asp-append-version="true"></script>
+
