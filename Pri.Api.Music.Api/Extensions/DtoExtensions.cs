@@ -5,15 +5,17 @@ namespace Pri.Api.Music.Api.Extensions
 {
     public static class DtoExtensions
     {
-        public static RecordsResponseDto MapToDto(this IEnumerable<Record> records)
+        public static RecordsResponseDto MapToDto(this IEnumerable<Record> records,HttpContext httpContext)
         {
             return new RecordsResponseDto
             {
                 Records = records.Select(r => new BaseDto
                 {
                     Id = r.Id,
-                    Name = r.Title
+                    Name = r.Title,
+                    ImageUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/images/records/{r.Image ?? "placeholder.svg"}"
                 })
+                
             };
         }
         public static RecordResponseDto MapToDto(this Record record)

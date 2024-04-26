@@ -17,7 +17,7 @@ namespace Pri.Api.Music.Api.Controllers
         private readonly IRecordService _recordService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<RecordsController> _logger;
-
+        
         public RecordsController(IRecordService recordService, IWebHostEnvironment webHostEnvironment, ILogger<RecordsController> logger)
         {
             _recordService = recordService;
@@ -29,7 +29,7 @@ namespace Pri.Api.Music.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _recordService.GetAllAsync();
-            return Ok(result.Value.MapToDto());
+            return Ok(result.Value.MapToDto(HttpContext));
         }
 
         [HttpGet("{id}")]
@@ -128,7 +128,7 @@ namespace Pri.Api.Music.Api.Controllers
             var result = await _recordService.SearchByArtistAsync(name);
             if(result.IsSucces)
             {
-                return Ok(result.Value.MapToDto());
+                return Ok(result.Value.MapToDto(HttpContext));
             }
             return Ok(result.Errors);
         }
@@ -138,7 +138,7 @@ namespace Pri.Api.Music.Api.Controllers
             var result = await _recordService.GetRecordsByGenreIdAsync(id);
             if (result.IsSucces)
             {
-                return Ok(result.Value.MapToDto());
+                return Ok(result.Value.MapToDto(HttpContext));
             }
             return Ok(result.Errors);
         }
@@ -152,7 +152,7 @@ namespace Pri.Api.Music.Api.Controllers
             var result = await _recordService.SearchByTitleAsync(title);
             if (result.IsSucces)
             {
-                return Ok(result.Value.MapToDto());
+                return Ok(result.Value.MapToDto(HttpContext));
             }
             return Ok(result.Errors);
         }
@@ -197,7 +197,7 @@ namespace Pri.Api.Music.Api.Controllers
                 = $"{Guid.NewGuid()}_{file.FileName}";
             //filepath
             var pathToImages 
-                = Path.Combine(_webHostEnvironment.WebRootPath, "images", nameof(T));
+                = Path.Combine(_webHostEnvironment.WebRootPath, "images", "records");
             if (!Directory.Exists(pathToImages))
             {
                 Directory.CreateDirectory(pathToImages);

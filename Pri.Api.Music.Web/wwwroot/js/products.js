@@ -15,6 +15,8 @@
         emailAdress: "",
         dateOfBirth: new Date().toLocaleDateString('en-CA'),
         isAdmin: false,
+        adminProductsVisible: false,
+        adminCategoriesVisible:false,
     },
     created: function () {
         if (sessionStorage.getItem('token') !== null) {
@@ -35,6 +37,14 @@
         }
     },
     methods: {
+        showAdminProducts: function () {
+            this.adminProductsVisible = true;
+            this.adminCategoriesVisible = false;
+        },
+        showAdminCategories: function () {
+            this.adminCategoriesVisible = true;
+            this.adminProductsVisible = false;
+        },
         submitLogin: async function () {
             this.showError = false;
             const loginDto = {

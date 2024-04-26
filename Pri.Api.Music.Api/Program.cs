@@ -137,7 +137,7 @@ namespace Pri.Api.Music.Api
                 options.AllowAnyMethod();
             });
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseAuthentication();
             app.UseAuthorization();
             

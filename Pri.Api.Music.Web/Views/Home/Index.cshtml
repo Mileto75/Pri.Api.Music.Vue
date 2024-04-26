@@ -1,8 +1,13 @@
 ﻿
-<div>
-    <div v-if="isAdmin" class="row justify-content-center">
-        <div class="col col-lg-4"><button class="btn btn-outline-primary">Manage categories</button></div>
-        <div class="col col-lg-4"><button class="btn btn-outline-primary">Manage products</button></div>
-    </div>
+
+<div v-if="isAdmin" class="row justify-content-center">
+    <div v-on:click="showAdminProducts" class="col col-lg-4"><button class="btn btn-outline-primary">Manage categories</button></div>
+    <div v-on:click="showAdminCategories" class="col col-lg-4"><button class="btn btn-outline-primary">Manage products</button></div>
+</div>
+<div v-if="adminProductsVisible" class="row">
+    products
+</div>
+<div v-if="adminCategoriesVisible" class="row">
+    categories
 </div>
 
