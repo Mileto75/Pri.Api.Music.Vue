@@ -1,6 +1,6 @@
 ﻿namespace Pri.Api.Music.Api.Dtos
 {
-    public class RecordResponseDto : BaseDto
+    public class RecordResponseDto : RecordBaseDto
     {
         public decimal Price { get; set; }
         public BaseDto Genre { get; set; }

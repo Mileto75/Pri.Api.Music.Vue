@@ -2,6 +2,6 @@
 {
     public class RecordsResponseDto
     {
-        public IEnumerable<BaseDto> Records { get; set; }
+        public IEnumerable<RecordBaseDto> Records { get; set; }
     }
 }

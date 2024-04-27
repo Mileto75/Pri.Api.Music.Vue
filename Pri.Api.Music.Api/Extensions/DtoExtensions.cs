@@ -9,7 +9,7 @@ namespace Pri.Api.Music.Api.Extensions
         {
             return new RecordsResponseDto
             {
-                Records = records.Select(r => new BaseDto
+                Records = records.Select(r => new RecordBaseDto
                 {
                     Id = r.Id,
                     Name = r.Title,
@@ -18,7 +18,7 @@ namespace Pri.Api.Music.Api.Extensions
                 
             };
         }
-        public static RecordResponseDto MapToDto(this Record record)
+        public static RecordResponseDto MapToDto(this Record record,HttpContext httpContext)
         {
             return new RecordResponseDto
             {
@@ -42,6 +42,7 @@ namespace Pri.Api.Music.Api.Extensions
                     Id = p.Id,
                     Name = p.Name
                 }),
+                ImageUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/images/records/{record.Image ?? "placeholder.svg"}"
             };
         }
     }

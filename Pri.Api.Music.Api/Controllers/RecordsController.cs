@@ -33,7 +33,6 @@ namespace Pri.Api.Music.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy="User")]
         public async Task<IActionResult> Get(int id)
         {
             //get the record
@@ -41,7 +40,7 @@ namespace Pri.Api.Music.Api.Controllers
             //check for errors
             if (result.IsSucces)
             {
-                return Ok(result.Value.MapToDto());
+                return Ok(result.Value.MapToDto(HttpContext));
             }
             return NotFound(result.Errors);
         }
@@ -60,7 +59,7 @@ namespace Pri.Api.Music.Api.Controllers
             if (result.IsSucces)
             {
                 return CreatedAtAction(nameof(Get), new {ID = result.Value.Id },result.Value
-                    .MapToDto());
+                    .MapToDto(HttpContext));
             }
             foreach(var error in result.Errors)
             {
@@ -181,7 +180,7 @@ namespace Pri.Api.Music.Api.Controllers
             {
                 return 
                     CreatedAtAction(nameof(Get), new { Id = result.Value.Id }
-                    , result.Value.MapToDto());
+                    , result.Value.MapToDto(HttpContext));
             }
             foreach(var error in result.Errors)
             {
