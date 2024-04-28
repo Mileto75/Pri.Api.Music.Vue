@@ -4,9 +4,12 @@
     data: {
         loginUrl: "https://localhost:7104/api/Auth/Login",
         registerUrl: "https://localhost:7104/api/Auth/Register",
+        baseUrl: "https://localhost:7104/api/",
         username: "",
         password: "",
         showError: false,
+        artists: [],
+        records: [],
         loggedIn: false,
         errorMessage: "",
         token: "",
@@ -16,7 +19,7 @@
         dateOfBirth: new Date().toLocaleDateString('en-CA'),
         isAdmin: false,
         adminProductsVisible: false,
-        adminCategoriesVisible:false,
+        adminArtistsVisible:false,
     },
     created: function () {
         if (sessionStorage.getItem('token') !== null) {
@@ -37,13 +40,28 @@
         }
     },
     methods: {
-        showAdminProducts: function () {
+        showAdminProducts: async function () {
             this.adminProductsVisible = true;
-            this.adminCategoriesVisible = false;
+            this.adminArtistsVisible = false;
+            this.records = await axios.get(`${this.baseUrl}records`)
+                .then(response => {
+                    console.log(response);
+                    return response.data.records;
+                })
+                .catch(error => {
+                    console.Log(error);
+                });
+            console.log(this.records);
         },
-        showAdminCategories: function () {
-            this.adminCategoriesVisible = true;
+        showAdminArtists: async function () {
+            this.adminArtistsVisible = true;
             this.adminProductsVisible = false;
+            this.artists = await axios.get(`${this.baseUrl}artists`)
+                .then(response => {
+                    console.log(response);
+                    return response.data.artists;
+                })
+                .catch(error => console.log(error));
         },
         submitLogin: async function () {
             this.showError = false;
