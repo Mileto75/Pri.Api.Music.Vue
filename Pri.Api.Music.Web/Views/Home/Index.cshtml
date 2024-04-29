@@ -40,54 +40,14 @@
 </div>
 @* modals *@
 @* Add artist modal *@
-<div class="modal fade" id="addArtistModal" tabindex="-1" role="dialog" aria-labelledby="addArtistModal-label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addArtistModalTitle">Create artist</h5>
-            </div>
-            <div class="modal-body">
-                <!--Modal content-->
-                <form method="post">
-                    <div class="form-group">
-                        <label>Artist name:</label>
-                        <input type="text" v-model="newArtistName" class="form-control">
-                    </div>
-                    <div class="mt-2">
-                        <button v-on:click="toggleModal('addArtistModal')" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button v-on:click="createArtist" type="button" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-                <!--End modal content-->
-            </div>
-            </div>
-    </div>
-</div>
+
 @* end Add artist modal *@
 @* Add record modal *@
-<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addArtistModal-label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalTitle">Create record</h5>
-            </div>
-            <div class="modal-body">
-                <!--Modal content-->
-                <form method="post">
-                    <div class="form-group">
-                        <label>Record:</label>
-                        <input type="text" v-model="newProductName" class="form-control">
-                    </div>
-                    <div class="mt-2">
-                        <button v-on:click="toggleModal('addProductModal')" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
-                    </div>
-                </form>   
-                <!--End Modal content-->
-            </div>
-        </div>
-    </div>
-</div>
+
 @* end Add record modal *@
-@* edit modal *@
-@* end edit modal *@
+@* edit Artist modal *@
+
+@* end edit Artist modal *@
+@* edit Record modal *@
+
+@* end edit Record modal *@
