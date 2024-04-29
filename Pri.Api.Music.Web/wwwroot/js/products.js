@@ -37,31 +37,64 @@
                 this.profileImage = this.tokenObject["profile-image"];
             }
             this.loggedIn = true;
+            this.getRecords();
+            this.getArtists();
+            this.getGenres();
+            this.getProperties();
         }
     },
     methods: {
         showAdminProducts: async function () {
             this.adminProductsVisible = true;
             this.adminArtistsVisible = false;
-            this.records = await axios.get(`${this.baseUrl}records`)
-                .then(response => {
-                    console.log(response);
-                    return response.data.records;
-                })
-                .catch(error => {
-                    console.Log(error);
-                });
-            console.log(this.records);
         },
         showAdminArtists: async function () {
             this.adminArtistsVisible = true;
             this.adminProductsVisible = false;
-            this.artists = await axios.get(`${this.baseUrl}artists`)
+        },
+        getGenres: async function () {
+            const url = `${this.baseUrl}genres`;
+            this.genres = await axios.get(url)
                 .then(response => {
-                    console.log(response);
+                    console.log(response.data.genres);
+                    return response.data.genres;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        getProperties: async function () {
+            const url = `${this.baseUrl}properties`;
+            this.properties = await axios.get(url)
+                .then(response => {
+                    console.log(response.data.properties);
+                    return response.data.properties;
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        getArtists: async function () {
+            const url = `${this.baseUrl}artists`;
+            this.artists = await axios.get(url)
+                .then(response => {
+                    console.log(response.data.artists);
                     return response.data.artists;
                 })
-                .catch(error => console.log(error));
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        getRecords: async function () {
+            const url = `${this.baseUrl}records`;
+            this.records = await axios.get(url)
+                .then(response => {
+                    console.log(response.data.records);
+                    return response.data.records;
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         },
         submitLogin: async function () {
             this.showError = false;
@@ -90,6 +123,10 @@
                 this.isAdmin = true;
             }
             this.loggedIn = true;
+            this.getRecords();
+            this.getArtists();
+            this.getGenres();
+            this.getProperties();
         },
         registerUser: async function () {
             const registerDto = {
