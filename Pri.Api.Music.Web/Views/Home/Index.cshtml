@@ -15,7 +15,7 @@
                     <h5 class="card-title">{{record.name}}</h5>
                     <span v-if="isAdmin">
                         <button type="button" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button v-on:click="deleteRecord(record.id)" type="button" class="btn btn-danger">Delete</button>
                     </span>
                 </div>
             </div>

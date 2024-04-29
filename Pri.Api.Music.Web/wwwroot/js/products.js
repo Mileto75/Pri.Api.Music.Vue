@@ -111,6 +111,24 @@
                     })
             }
         },
+        deleteRecord: async function (id) {
+            if (confirm("Delete record?")) {
+                const url = `${this.baseUrl}records/${id}`;
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem("token")}`
+                    }
+                };
+                await axios.delete(url, config)
+                    .then(response => {
+                        console.log(response.data);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                this.records = this.records.filter(el => el.id != id);
+            }
+        },
         createArtist: async function () {
             const url = `${this.baseUrl}artists`;
             //set the token
