@@ -66,7 +66,7 @@ namespace Pri.Api.Music.Api.Controllers
             }
             return BadRequest(ModelState.Values);
         }
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _artistService.DeleteAsync(id);
