@@ -93,6 +93,24 @@
             }
             this.loggedIn = true;
         },
+        deleteArtist: async function (id) {
+            if (confirm('Delete artist')) {
+                const url = `${this.baseUrl}artists/${id}`;
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem("token")}`
+                    }
+                }
+                await axios.delete(url, config)
+                    .then(response => {
+                        console.log(response.data);
+                        this.artists = this.artists.filter(el => el.id != id);
+                    })
+                    .catch (error => {
+                        console.log(error);
+                    })
+            }
+        },
         createArtist: async function () {
             const url = `${this.baseUrl}artists`;
             //set the token
@@ -105,10 +123,15 @@
             await axios.post(url, body, config)
                 .then(response => {
                     console.log(response.data);
+                    this.artists.push({
+                        id: response.data.id,
+                        name: response.data.name
+                    });
                     this.toggleModal('addArtistModal');
                 })
                 .catch(error => console.log(error))
         },
+        //auth methods
         registerUser: async function () {
             const registerDto = {
                 "email": this.username,
@@ -131,9 +154,6 @@
             this.loggedIn = false;
             this.isAdmin = false;
         },
-        toggleModal: function (modalId) {
-            $(`#${modalId}`).modal('toggle');
-        },
         decodeToken: function (token) {
             var base64Url = token.split('.')[1];
             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -141,6 +161,10 @@
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
             return JSON.parse(jsonPayload);
+        },
+        //modal methods
+        toggleModal: function (modalId) {
+            $(`#${modalId}`).modal('toggle');
         },
     }
 });
