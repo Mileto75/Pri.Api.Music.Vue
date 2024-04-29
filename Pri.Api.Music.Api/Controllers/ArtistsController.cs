@@ -66,5 +66,15 @@ namespace Pri.Api.Music.Api.Controllers
             }
             return BadRequest(ModelState.Values);
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _artistService.DeleteAsync(id);
+            if (result.IsSucces)
+            {
+                return Ok();
+            }
+            return BadRequest("Something went wrong!");
+        }
     }
 }

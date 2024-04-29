@@ -49,7 +49,22 @@ namespace Pri.Api.Music.Core.Services
                 Errors = new List<string>() { "Artist not saved!" }
             };
         }
-
+        public async Task<ResultModel<Artist>> DeleteAsync(int id)
+        {
+            var artist = await _artistRepository.GetByIdAsync(id);
+            if (await _artistRepository.DeleteAsync(artist))
+            {
+                return new ResultModel<Artist>
+                {
+                    IsSucces = true,
+                    Value = artist
+                };
+            }
+            return new ResultModel<Artist>
+            {
+                IsSucces = false
+            };
+        }
         public async Task<ResultModel<IEnumerable<Artist>>> GetAllAsync()
         {
             var artists = await _artistRepository.GetAllAsync();
