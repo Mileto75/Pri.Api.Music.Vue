@@ -16,6 +16,8 @@
         tokenObject: null,
         profileImage: "",
         emailAdress: "",
+        newArtistName: "",
+        newProductName: "",
         dateOfBirth: new Date().toLocaleDateString('en-CA'),
         isAdmin: false,
         adminProductsVisible: false,
@@ -90,6 +92,22 @@
                 this.isAdmin = true;
             }
             this.loggedIn = true;
+        },
+        createArtist: async function () {
+            const url = `${this.baseUrl}artists`;
+            //set the token
+            const config = {
+                headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` }
+            };
+            const body = {
+                "name": this.newArtistName
+            };
+            await axios.post(url, body, config)
+                .then(response => {
+                    console.log(response.data);
+                    this.toggleModal('addArtistModal');
+                })
+                .catch(error => console.log(error))
         },
         registerUser: async function () {
             const registerDto = {
