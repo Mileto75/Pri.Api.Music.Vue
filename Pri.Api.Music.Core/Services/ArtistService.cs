@@ -102,5 +102,16 @@ namespace Pri.Api.Music.Core.Services
                 Value = artist
             };
         }
+
+        public async Task<ResultModel<Artist>> UpdateAsync(int id, string name)
+        {
+            var artist = await _artistRepository.GetByIdAsync(id);
+            artist.Name = name;
+            if(await _artistRepository.UpdateAsync(artist))
+            {
+                return new ResultModel<Artist> { IsSucces = true };
+            }
+            return new ResultModel<Artist> { IsSucces = false};
+        }
     }
 }

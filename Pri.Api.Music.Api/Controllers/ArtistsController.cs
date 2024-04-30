@@ -72,9 +72,19 @@ namespace Pri.Api.Music.Api.Controllers
             var result = await _artistService.DeleteAsync(id);
             if(result.IsSucces)
             {
-                return Ok();
+                return Ok("artist deleted!");
             }
             return BadRequest("Something went wrong!");
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update(ArtistUpdateRequestDto artistUpdateRequestDto) 
+        {
+            var result = await _artistService.UpdateAsync(artistUpdateRequestDto.Id, artistUpdateRequestDto.Name);
+            if(result.IsSucces)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }

@@ -30,8 +30,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{{artist.name}}</h5>
                     <span v-if="isAdmin">
-                        <button type="button" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button v-on:click="showEditArtistModal(artist.id)" type="button" class="btn btn-primary">Edit</button>
+                        <button v-on:click="deleteArtist(artist.id)" type="button" class="btn btn-danger">Delete</button>
                     </span>
                 </div>
             </div>
@@ -55,8 +55,8 @@
                     <button v-on:click="toggleModal('addArtistModal')" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                </div>
             </div>
+        </div>
     </div>
 </div>
 @* Add artist modal *@
@@ -66,6 +66,26 @@
 
 @* end Add record modal *@
 @* edit Artist modal *@
+<div class="modal fade" id="editArtistModal" tabindex="-1" role="dialog" aria-labelledby="addArtistModal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editArtistModalTitle">Create artist</h5>
+            </div>
+            <div class="modal-body">
+                <!--Modal content-->
+                <form v-on:submit.prevent="updateArtist">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input v-model="selectedArtist" type="text" class="form-control">
+                    </div>
+                    <button v-on:click="toggleModal('editArtistModal')" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @* end edit Artist modal *@
 @* edit Record modal *@

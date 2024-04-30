@@ -15,5 +15,6 @@ namespace Pri.Api.Music.Core.Interfaces.Services
         Task<ResultModel<Artist>> GetByIdAsync(int id);
         Task<ResultModel<Artist>> CreateAsync(string name);
         Task<ResultModel<Artist>> DeleteAsync(int id);
+        Task<ResultModel<Artist>> UpdateAsync(int id,string name);
     }
 }

@@ -14,6 +14,7 @@
         errorMessage: "",
         token: "",
         newArtist: "",
+        selectedArtist: "",
         tokenObject: null,
         profileImage: "",
         emailAdress: "",
@@ -135,7 +136,7 @@
             //create the headers => token
             const config = {
                 headers: {
-                    Authorization: `Bearer ${sessionStorage.token}`
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`
                 }
             };
             //create the data
@@ -156,7 +157,26 @@
                 .catch(error => {
                     console.log(error);
                 })
-    
+        },
+        deleteArtist: async function (id) {
+            //confirm delete
+            if (confirm("Delete artist?")) {
+                //build the url
+                const url = `${this.baseUrl}artists/${id}`;
+                //set the headers => token
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem("token")}`
+                    }
+                };
+                //send the request
+                await axios.delete(url, config)
+                    .then(response => {
+                        console.log(response.data);
+                        //remove artist from list
+                        this.artists = this.artists.filter(el => el.id !== id);
+                    }).catch(error => console.log(error));
+            };
         },
         //auth functions
         registerUser: async function () {
@@ -180,6 +200,15 @@
             window.sessionStorage.clear();
             this.loggedIn = false;
             this.isAdmin = false;
+            this.adminArtistsVisible = false;
+            this.adminProductsVisible = false;
+        },
+        showEditArtistModal: function (id) {
+            this.selectedArtist = this.artists.find(el => el.id === id).name;
+            this.toggleModal("editArtistModal");
+        },
+        updateArtist: function () {
+            //call the update endpoint
         },
         toggleModal: function (modalId) {
             $(`#${modalId}`).modal('toggle');
