@@ -12,6 +12,16 @@
         records: [],
         loggedIn: false,
         errorMessage: "",
+        newRecord: {
+            title: "",
+            price: "",
+            image: null,
+            genreId: "",
+            artistId: "",
+            propertyIds:[]
+        },
+        genres: [],
+        properties:[],
         token: "",
         newArtist: "",
         selectedArtist: "",
@@ -97,6 +107,9 @@
                 .catch(error => {
                     console.log(error);
                 })
+        },
+        getFile: function (event) {
+            console.log(event);
         },
         submitLogin: async function () {
             this.showError = false;
@@ -204,11 +217,31 @@
             this.adminProductsVisible = false;
         },
         showEditArtistModal: function (id) {
-            this.selectedArtist = this.artists.find(el => el.id === id).name;
+            this.selectedArtist = this.artists.find(el => el.id === id);
             this.toggleModal("editArtistModal");
         },
-        updateArtist: function () {
+        updateArtist: async function () {
             //call the update endpoint
+            const url = `${this.baseUrl}artists`;
+            //set the data
+            data = {
+                "name": this.selectedArtist.name,
+                "id": this.selectedArtist.id
+            }
+            //config headers => token
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`
+                }
+            };
+            //call the api
+            await axios.put(url, data, config)
+                .then(response => {
+                    console.log(response);
+                    this.artists.find(el => el.id === this.selectedArtist.id)
+                        .name = this.selectedArtist.name;
+                    this.toggleModal("editArtistModal");
+                }).catch(error => console.log(error));
         },
         toggleModal: function (modalId) {
             $(`#${modalId}`).modal('toggle');
