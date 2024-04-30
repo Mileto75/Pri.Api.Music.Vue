@@ -13,6 +13,7 @@
         loggedIn: false,
         errorMessage: "",
         token: "",
+        newArtist: "",
         tokenObject: null,
         profileImage: "",
         emailAdress: "",
@@ -128,6 +129,36 @@
             this.getGenres();
             this.getProperties();
         },
+        createArtist: async function() {
+            //create the url
+            const url = `${this.baseUrl}artists`;
+            //create the headers => token
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.token}`
+                }
+            };
+            //create the data
+            const data = {
+                name: this.newArtist
+            };
+            //do the post
+            await axios.post(url, data, config)
+                .then(response => {
+                    console.log(response.data);
+                    this.artists.push({
+                        id: response.data.id,
+                        name: response.data.name,
+                    });
+                    this.newArtist = "";
+                    this.toggleModal("addArtistModal");
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+    
+        },
+        //auth functions
         registerUser: async function () {
             const registerDto = {
                 "email": this.username,
